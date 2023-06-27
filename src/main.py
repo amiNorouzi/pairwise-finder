@@ -32,15 +32,18 @@ def generate_pairwise_combinations(input_data):
         for pir in first_comb_pir:
             curr_pir.add(pir)
 
-        for pir in curr_pir:
-            for comb in comb_pairwise:
-                if pir in comb_pairwise[comb]:
-                    comb_pairwise[comb].remove(pir)
-
+        remove_visited(comb_pairwise, curr_pir)
         result.append(first_comb)
         comb_pairwise = dict(sorted(comb_pairwise.items(), key=lambda x: len(x[1]), reverse=True))
 
     return result
+
+
+def remove_visited(comb_pairwise, curr_pir):
+    for pir in curr_pir:
+        for comb in comb_pairwise:
+            if pir in comb_pairwise[comb]:
+                comb_pairwise[comb].remove(pir)
 
 
 def print_pairwise_combinations(combinations):
